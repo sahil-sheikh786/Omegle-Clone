@@ -46,7 +46,7 @@ let init = async ()=>{
     });
     document.getElementById("user-1").srcObject = localStream;
 
-    $.post("http://localhost:3000/get-remote-users", {omeID: omeID})
+    $.post("https://sahil-sheikh786.github.io/Omegle-Clone/get-remote-users", {omeID: omeID})
     .done(function(data){
         console.log(data[0]._id);
         if(data[0]){
@@ -64,7 +64,7 @@ let init = async ()=>{
 };
 init();
 
-let socket = io.connect("http://localhost:3000"); 
+let socket = io.connect(); 
 
 socket.on("connect", () => {
     if(socket.connected) {
@@ -165,7 +165,7 @@ function onSendChannelStateChange(){
     }
 };
  function fetchNextUser(remoteUser){
-    $,post("http://localhost:3000/get-next-user",
+    $,post("https://sahil-sheikh786.github.io/Omegle-Clone/get-next-user",
     {omeID:omeID, remoteUser: remoteUser},
     function(data){
         console.log("Next user is:" ,data);
