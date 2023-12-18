@@ -46,7 +46,7 @@ let init = async ()=>{
     });
     document.getElementById("user-1").srcObject = localStream;
 
-    $.post("https://sahil-sheikh786.github.io/Omegle-Clone/get-remote-users", {omeID: omeID})
+    $.post("https://omegle-clone-q8br.onrender.com/get-remote-users", {omeID: omeID})
     .done(function(data){
         console.log(data[0]._id);
         if(data[0]){
@@ -165,7 +165,7 @@ function onSendChannelStateChange(){
     }
 };
  function fetchNextUser(remoteUser){
-    $,post("https://sahil-sheikh786.github.io/Omegle-Clone/get-next-user",
+    $,post("https://omegle-clone-q8br.onrender.com/get-next-user",
     {omeID:omeID, remoteUser: remoteUser},
     function(data){
         console.log("Next user is:" ,data);
