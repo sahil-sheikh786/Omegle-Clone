@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Talk to Strangers</h1>
+    </header>
+    <ul id="messages"></ul>
+    
+    <form id="form" action="">
+        <button type="button" id="skip">Skip</button>
+        <input id="input" autocomplete="off" placeholder="Type your message here..." />
+        <button type="submit">Send</button>
+    </form>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
