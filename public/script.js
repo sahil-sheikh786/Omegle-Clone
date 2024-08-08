@@ -8,7 +8,8 @@ const skipButton = document.getElementById('skip');
 let typingTimeout;
 
 function autoScroll() {
-    messages.scrollTop = messages.scrollHeight;
+    // Scroll to the top of the messages container
+    messages.scrollTop = 0;
 }
 
 socket.on('status', (message) => {
@@ -20,14 +21,14 @@ socket.on('status', (message) => {
     const item = document.createElement('li');
     item.textContent = message;
     item.classList.add('status'); // Add a class to identify status messages
-    messages.appendChild(item);
+    messages.insertBefore(item, messages.firstChild);
     autoScroll();
 });
 
 socket.on('message', (message) => {
     const item = document.createElement('li');
     item.textContent = `Stranger: ${message}`;
-    messages.appendChild(item);
+    messages.insertBefore(item, messages.firstChild);
     autoScroll();
 });
 
@@ -37,7 +38,7 @@ socket.on('typing', () => {
         typingMessage = document.createElement('li');
         typingMessage.id = 'typing-message';
         typingMessage.textContent = 'Stranger is typing...';
-        messages.appendChild(typingMessage);
+        messages.insertBefore(typingMessage, messages.firstChild);
         autoScroll();
     }
     clearTimeout(typingTimeout);
@@ -58,7 +59,7 @@ form.addEventListener('submit', (e) => {
         socket.emit('message', input.value);
         const item = document.createElement('li');
         item.textContent = `You: ${input.value}`;
-        messages.appendChild(item);
+        messages.insertBefore(item, messages.firstChild);
         input.value = '';
         autoScroll();
         input.focus();

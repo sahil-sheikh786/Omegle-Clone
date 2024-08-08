@@ -149,6 +149,8 @@ ul#messages {
     background: #fff; 
     border-bottom: 0.0625rem solid #ccc;
     box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+    display: flex;
+    flex-direction: column-reverse; /* Display messages from bottom to top */
 }
 
 li { 
@@ -166,6 +168,7 @@ form {
     border-top: 0.0625rem solid #ccc;
     width: 100%; /* Full width */
     box-sizing: border-box; /* Include padding and border in the width */
+    position: relative; /* Ensure the form stays at the bottom */
 }
 
 button#skip { 
@@ -205,11 +208,6 @@ button:hover {
 }
 
 /* Ensure footer is at the bottom */
-ul#messages {
-    flex: 1;
-    overflow-y: auto;
-}
-
 form {
     position: relative;
     bottom: 0;
@@ -234,3 +232,4 @@ form {
         margin-right: 0; /* Remove right margin */
     }
 }
+
