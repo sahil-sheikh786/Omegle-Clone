@@ -7,6 +7,9 @@ const skipButton = document.getElementById('skip');
 
 let typingTimeout;
 
+// Disable input by default until users are connected
+input.disabled = true;
+
 function autoScroll() {
     // Scroll to the top of the messages container
     messages.scrollTop = 0;
@@ -23,6 +26,13 @@ socket.on('status', (message) => {
     item.classList.add('status'); // Add a class to identify status messages
     messages.insertBefore(item, messages.firstChild);
     autoScroll();
+
+    // Enable or disable input based on the connection status
+    if (message.includes("connected with a stranger")) {
+        input.disabled = false; // Enable input when users are connected
+    } else {
+        input.disabled = true; // Disable input when users are not connected
+    }
 });
 
 socket.on('message', (message) => {
