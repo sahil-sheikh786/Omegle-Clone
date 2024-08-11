@@ -8,6 +8,7 @@ const io = socketIo(server);
 
 let users = {};
 let waitingUsers = []; // To track users waiting for a match
+let onlineUserCount = 0;
 
 app.use(express.static('public'));
 
@@ -95,6 +96,14 @@ io.on('connection', (socket) => {
         }
         delete users[socket.id];
         waitingUsers = waitingUsers.filter(id => id !== socket.id);
+    });
+
+    onlineUserCount++; // Increment count when a user connects
+    io.emit('updateOnlineCount', onlineUserCount); // Broadcast the updated count
+
+    socket.on('disconnect', () => {
+        onlineUserCount--; // Decrement count when a user disconnects
+        io.emit('updateOnlineCount', onlineUserCount); // Broadcast the updated count
     });
 });
 

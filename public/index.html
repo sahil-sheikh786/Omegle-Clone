@@ -22,6 +22,9 @@
     <header>
         <h1>Strangex</h1>
         <div class="tagline">Meet Strangers</div>
+        <div class="online-now">
+            <strong id="online-count">0</strong> Users Online
+        </div>        
     </header>
 
     <div class="description">
@@ -36,5 +39,23 @@
         <a href="textchat.html">Text Chat</a>
         <a href="#" class="coming-soon">Video Chat (Coming Soon)</a>
     </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const onlineCount = document.getElementById('online-count');
+        
+        // Function to update the online user count
+        function updateOnlineCount(count) {
+            onlineCount.textContent = count;
+        }
+        
+        // Listen for the online user count update from the server
+        socket.on('updateOnlineCount', (count) => {
+            updateOnlineCount(count);
+        });
+    </script>
+
 </body>
 </html>
