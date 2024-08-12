@@ -8,15 +8,15 @@ body {
     flex-direction: column; 
     height: 100vh; 
     position: relative; 
-    color: #333; 
+    color: #333;
 }
 
 header {
-    background-color: #2196f3;
+    background: radial-gradient(circle, rgb(0, 0, 0), rgb(0, 0, 0), rgb(41, 41, 41));
     color: white;
-    padding: 10px 0;
+    padding: 0.5rem;
     text-align: center;
-    border-bottom: 4px solid #1976d2;
+    border-bottom: 0.125rem solid #000000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -31,14 +31,21 @@ header h1 {
 }
 /* General styles for the online users display */
 .online-now {
-    font-size: 1.2em;
-    color: lightgreen;
+    font-size: 1.1em;
+    color: rgb(0, 255, 0);
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center; /* Aligns content to the center */
-    padding: 0px;
+    padding: 0;
     animation: blink 1.5s infinite; /* Apply blinking animation to the whole container */
+}
+/* Media Query for Android devices and smaller screens */
+@media (max-width: 768px) {
+    .online-now {
+        font-size: 1em; /* Adjust font size for smaller screens */
+        padding: 0 10px; /* Add padding to ensure text doesn't touch the edges */
+    }
 }
 
 /* Styling the number of online users */
@@ -73,7 +80,7 @@ header h1 {
 .buttons a {
     text-decoration: none;
     color: white;
-    background: darkblue;
+    background: rgb(0, 0, 0);
     padding: 12px 20px; /* Reduced padding */
     border-radius: 5px;
     font-size: 1em; /* Adjusted for smaller screens */
@@ -82,7 +89,7 @@ header h1 {
 }
 
 .buttons a:hover {
-    background-color: rgb(0, 183, 255);
+    background-color: rgb(20, 20, 20);
     transform: scale(1.05);
 }
 
@@ -103,7 +110,7 @@ header h1 {
     padding: 12px; /* Reduced padding */
     border-radius: 5px;
     text-align: center;
-    margin: 20px auto;
+    margin: 10px auto;
     max-width: 90%; /* Adjusted width */
     font-size: 1em; /* Adjusted for smaller screens */
 }
@@ -145,23 +152,6 @@ html, body {
     padding: 0;
     height: 100%;
     overflow: hidden; /* Hide scrollbars on the body */
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-header {
-    background: radial-gradient(circle, darkblue, darkblue, rgb(0, 191, 255));
-    color: white;
-    padding: 0.5rem;
-    text-align: center;
-    border-bottom: 0.125rem solid #1976d2;
-}
-
-h1 {
-    margin: 0;
 }
 
 ul#messages { 
@@ -220,7 +210,7 @@ input {
 
 button { 
     padding: 0.625rem; 
-    background: darkblue; 
+    background: darkgreen; 
     color: white; 
     border: none; 
     border-radius: 0.3125rem; 
@@ -228,7 +218,7 @@ button {
 }
 
 button:hover { 
-    background: #1976d2; 
+    background: green; 
 }
 
 /* Ensure footer is at the bottom */
