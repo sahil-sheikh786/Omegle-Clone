@@ -15,6 +15,13 @@ function autoScroll() {
     messages.scrollTop = 0;
 }
 
+function playSound() {
+    const audio = document.getElementById('message-sound');
+    if (audio) {
+        audio.play();
+    }
+}
+
 socket.on('status', (message) => {
     // Remove existing status messages
     document.querySelectorAll('.status').forEach(statusMessage => {
@@ -30,6 +37,7 @@ socket.on('status', (message) => {
     // Enable or disable input based on the connection status
     if (message.includes("connected with a stranger")) {
         input.disabled = false; // Enable input when users are connected
+        playSound(); // Play sound when connected with a stranger
     } else {
         input.disabled = true; // Disable input when users are not connected
     }
@@ -40,6 +48,7 @@ socket.on('message', (message) => {
     item.textContent = `Stranger: ${message}`;
     messages.insertBefore(item, messages.firstChild);
     autoScroll();
+    playSound(); // Play sound when a new message is received
 });
 
 socket.on('typing', () => {
