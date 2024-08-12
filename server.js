@@ -7,21 +7,21 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 let users = {};
-let waitingUsers = []; // To track users waiting for a match
+let waitingUsers = [];
 let onlineUserCount = 0;
 
 app.use(express.static('public'));
 
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
-    users[socket.id] = { connectedTo: null, waiting: true };
+    users[socket.id] = { connectedTo: null, waiting: true, chatReady: false };
 
     // Notify user they are looking for a stranger
     socket.emit('status', 'Looking for a stranger to connect...');
 
     const findAndConnect = () => {
-        if (users[socket.id].waiting) {
-            const availableUser = waitingUsers.find(id => id !== socket.id);
+        if (users[socket.id].chatReady && users[socket.id].waiting) {
+            const availableUser = waitingUsers.find(id => id !== socket.id && users[id].chatReady);
             if (availableUser) {
                 users[socket.id].connectedTo = availableUser;
                 users[availableUser].connectedTo = socket.id;
@@ -48,7 +48,10 @@ io.on('connection', (socket) => {
         }
     };
 
-    findAndConnect();
+    socket.on('chatReady', () => {
+        users[socket.id].chatReady = true;
+        findAndConnect();
+    });
 
     socket.on('message', (msg) => {
         const connectedTo = users[socket.id].connectedTo;
@@ -80,7 +83,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('new', () => {
-        if (users[socket.id].waiting) {
+        if (users[socket.id].chatReady && users[socket.id].waiting) {
             findAndConnect();
         }
     });
@@ -96,15 +99,13 @@ io.on('connection', (socket) => {
         }
         delete users[socket.id];
         waitingUsers = waitingUsers.filter(id => id !== socket.id);
+
+        onlineUserCount--; // Decrement count when a user disconnects
+        io.emit('updateOnlineCount', onlineUserCount); // Broadcast the updated count
     });
 
     onlineUserCount++; // Increment count when a user connects
     io.emit('updateOnlineCount', onlineUserCount); // Broadcast the updated count
-
-    socket.on('disconnect', () => {
-        onlineUserCount--; // Decrement count when a user disconnects
-        io.emit('updateOnlineCount', onlineUserCount); // Broadcast the updated count
-    });
 });
 
 const PORT = process.env.PORT || 3000;

@@ -10,6 +10,11 @@ let typingTimeout;
 // Disable input by default until users are connected
 input.disabled = true;
 
+// Notify server that the user is ready to chat
+window.addEventListener('load', () => {
+    socket.emit('chatReady');
+});
+
 function autoScroll() {
     // Scroll to the top of the messages container
     messages.scrollTop = 0;
