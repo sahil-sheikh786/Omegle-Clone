@@ -74,7 +74,7 @@ header h1 {
     display: flex;
     justify-content: center;
     gap: 15px; /* Spacing between buttons */
-    margin-top: 20px; /* Reduced margin */
+    margin-top: 10px; /* Reduced margin */
 }
 
 .buttons a {
@@ -111,6 +111,7 @@ header h1 {
     border-radius: 5px;
     text-align: center;
     margin: 10px auto;
+    margin-top: 0px;
     max-width: 90%; /* Adjusted width */
     font-size: 1em; /* Adjusted for smaller screens */
 }
@@ -142,6 +143,26 @@ header h1 {
     .warning {
         font-size: 0.9em;
         padding: 10px; /* Further reduced padding */
+    }
+}
+.background {
+    position: fixed; /* Fixed positioning to keep it in place */
+    bottom: -30px; /* Start position off-screen */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally considering the image's width */
+    width: auto; /* Maintain aspect ratio */
+    height: 200px; /* Adjust height to your preference */
+    z-index: -1; /* Place it behind other content */
+    animation: slideUp 1s ease-in-out forwards; /* Apply animation */
+}
+  
+/* Keyframes for the slide-up animation */
+@keyframes slideUp {
+    0% {
+      bottom: -200px; /* Start position off-screen */
+    }
+    100% {
+      bottom: -30px; /* End position near the bottom */
     }
 }
                                 
